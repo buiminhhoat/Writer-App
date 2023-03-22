@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>CKEditor Example</title>
+    <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
+</head>
+<body>
+<h1>
+    Writer-App
+</h1>
+</body>
+<body>
+    <form action="/download" method="POST">
+        <textarea name="content" id="editor"></textarea>
+
+        <button type="download" id="download-btn">Download file</button>
+        <button type="upload">Upload file</button>
+    </form>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor')), {
+
+        }
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+</body>
+</html>
