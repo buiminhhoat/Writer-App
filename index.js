@@ -4,50 +4,76 @@ const path = require('path');
 const fs = require('fs');
 const fileSaver = require('file-saver');
 const cheerio = require('cheerio');
+const multer = require('multer');
 
-const publicDircetory = path.join(__dirname, './public');
+const publicDirectory = path.join(__dirname, './');
+const upload = multer({ dest: 'uploads/' });
 
 const PORT = 6903;
 app.listen(6903, () => console.log(`Server is listening on port: ${PORT}`));
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
-app.use(express.static(publicDircetory));
+app.use(express.static(publicDirectory));
 app.set('view engine', 'hbs');
 app.set('view engine', 'ejs');
 const session = require('express-session');
 
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
+
 app.use(
     session({
-        secret: 'padv',
+        secret: 'buiminhhoat',
         cookie: {maxAge: 60000000},
+        resave: false,
+        saveUninitialized: true
     }),
 );
 
 app.get('/', (req, res) => {
-    res.render("./ejs/index.ejs");
+    // const value = req.query.content || '';
+    // res.render("./ejs/index.ejs", { content: value});
+    const content = req.session.content || ''; // Lấy dữ liệu từ session, nếu không có thì gán giá trị rỗng
+    // res.render('index', { content });
+    res.render("./ejs/index.ejs", { content });
 });
 
 app.post('/download', (req, res) => {
     let content = req.body.content;
     console.log(content);
 
-    // const $ = cheerio.load(content);
-    // content = $.text();
-
-    // Tạo một Blob mới với nội dung của biến "content" và loại tệp tin là "text/plain".
-    const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
-
-    // Lưu nội dung vào tệp tin text trên máy chủ
-    const filePath = path.join(__dirname, 'file.txt');
+    const filePath = path.join(__dirname, 'file.html');
     fs.writeFile(filePath, content, err => {
         if (err) {
             console.error(err);
             res.status(500).send('Lỗi khi lưu tệp tin');
         } else {
             // Trả về tệp tin cho người dùng để tải xuống
-            res.download(filePath, 'file.txt');
+            res.download(filePath, 'file.html');
         }
     });
 
-    fileSaver.saveAs(blob, "file.txt");
+    fileSaver.saveAs(content, "file.html");
+});
+
+app.post('/upload', upload.single('htmlfile'), (req, res) => {
+    const file = req.file;
+    if (!file) {
+        res.status(400).send('No file uploaded');
+        return;
+    }
+    if (file.mimetype !== 'text/html') {
+        res.status(400).send('Invalid file type');
+        return;
+    }
+    fs.readFile(file.path, 'utf8', (err, data) => {
+        // res.render("./ejs/index.ejs", { content: data });
+        req.session.content = data;
+        res.redirect('/');
+        // if (err) {
+        //     console.log(err);
+        //   } else {
+        //     res.redirect(`/?content=${encodeURIComponent(data)}`);
+        // }
+    });
 });
