@@ -35,45 +35,8 @@ app.get('/', (req, res) => {
     res.render("./ejs/index.ejs", { content });
 });
 
-app.post('/download', (req, res) => {
-    let content = req.body.content;
-    console.log(content);
+app.post('/download', require('./routes/download.js'));
 
-    const filePath = path.join(__dirname, 'file.html');
-    fs.writeFile(filePath, content, err => {
-        if (err) {
-            console.error(err);
-            res.status(500).send('Lỗi khi lưu tệp tin');
-        } else {
-            // Trả về tệp tin cho người dùng để tải xuống
-            res.download(filePath, 'file.html');
-        }
-    });
+app.post('/upload', upload.single('htmlfile'), require('./routes/upload.js'));
 
-    fileSaver.saveAs(content, "file.html");
-});
-
-app.post('/upload', upload.single('htmlfile'), (req, res) => {
-    const file = req.file;
-    if (!file) {
-        res.status(400).send('No file uploaded');
-        return;
-    }
-    if (file.mimetype !== 'text/html') {
-        res.status(400).send('Invalid file type');
-        return;
-    }
-    fs.readFile(file.path, 'utf8', (err, data) => {
-        // Xóa file khỏi hệ thống tệp tin
-        fs.unlink(file.path, (err) => {
-            if (err) {
-            console.error(err);
-            return;
-            }
-            console.log(`Deleted file: ${file.path}`);
-        });
-        
-        req.session.content = data;
-        res.redirect('/');
-    });
-});
+app.post('/downloadFileWord', require('./routes/downloadFileWord.js'));

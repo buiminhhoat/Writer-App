@@ -16,16 +16,24 @@
     </h1>
 
     <textarea name="editor"></textarea>
+    <br>
+    <div style="display: flex;">
+        <form id = "download" action="/download" method="POST">
+            <input type="hidden" name="content" id="content" value="">
+            <button type="download" id="download-btn" style="margin-right: 20px;">Download file</button>
+        </form>
+    
+        <form method="POST" action="/upload" enctype="multipart/form-data">
+            <input type="file" name="htmlfile" />
+            <button type="submit" style="margin-right: 20px;">Upload file</button>
+        </form>
 
-    <form id = "download" action="/download" method="POST">
-        <input type="hidden" name="content" id="content" value="">
-        <button type="download" id="download-btn" class="btn btn-primary">Download file</button>
-    </form>
+        <form id = "downloadFileWord" action="/downloadfileword" method="POST">
+            <input type="hidden" name="contentfileword" id="contentfileword" value="">
+            <button type="download" id="download-btn" style="margin-right: 20px;">Download File Word</button>
+        </form>
+    </div>
 
-    <form method="POST" action="/upload" enctype="multipart/form-data">
-        <input type="file" name="htmlfile" />
-        <button type="submit">Upload</button>
-    </form>
 
     <script src="/public/js/tinymce.js"></script>
 
@@ -45,6 +53,7 @@
                 editor.on('input', function () {
                     var content = editor.getContent();
                     document.getElementById('content').value = content;
+                    document.getElementById('contentfileword').value = content;
                 });
             },
             init_instance_callback: function (editor) {
