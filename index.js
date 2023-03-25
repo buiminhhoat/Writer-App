@@ -31,10 +31,7 @@ app.use(
 );
 
 app.get('/', (req, res) => {
-    // const value = req.query.content || '';
-    // res.render("./ejs/index.ejs", { content: value});
     const content = req.session.content || ''; // Lấy dữ liệu từ session, nếu không có thì gán giá trị rỗng
-    // res.render('index', { content });
     res.render("./ejs/index.ejs", { content });
 });
 
@@ -67,13 +64,16 @@ app.post('/upload', upload.single('htmlfile'), (req, res) => {
         return;
     }
     fs.readFile(file.path, 'utf8', (err, data) => {
-        // res.render("./ejs/index.ejs", { content: data });
+        // Xóa file khỏi hệ thống tệp tin
+        fs.unlink(file.path, (err) => {
+            if (err) {
+            console.error(err);
+            return;
+            }
+            console.log(`Deleted file: ${file.path}`);
+        });
+        
         req.session.content = data;
         res.redirect('/');
-        // if (err) {
-        //     console.log(err);
-        //   } else {
-        //     res.redirect(`/?content=${encodeURIComponent(data)}`);
-        // }
     });
 });
