@@ -50,11 +50,15 @@
                 'bullist numlist outdent indent | link image | print preview media fullscreen | ' +
                 'forecolor backcolor emoticons',
             setup: function (editor) {
-                editor.on('input', function () {
+                function updateContent() {
                     var content = editor.getContent();
                     document.getElementById('content').value = content;
                     document.getElementById('contentfileword').value = content;
-                });
+                }
+
+                editor.on('input', updateContent);
+                editor.on('change', updateContent);
+                editor.on('paste', updateContent);
             },
             init_instance_callback: function (editor) {
                 editor.setContent('<%- content %>');

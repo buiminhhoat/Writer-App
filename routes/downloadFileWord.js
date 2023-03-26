@@ -1,4 +1,6 @@
 const path = require('path');
+const request = require('request');
+const Buffer = require('buffer').Buffer;
 const officegen = require('officegen');
 const fs = require('fs');
 const fileSaver = require('file-saver');
@@ -9,7 +11,7 @@ const Docxtemplater = require('docxtemplater');
   
 module.exports = function downloadFileWord(req, res) {
     let content = req.body.contentfileword;
-    
+    console.log(content);
     // Tạo một đối tượng Word mới
     const docx = officegen('docx');
     
