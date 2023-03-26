@@ -24,6 +24,6 @@ module.exports = function upload(req, res) {
         });
 
         req.session.content = data;
-        res.redirect('/');
+        res.redirect('/create');
     });
 }

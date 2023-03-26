@@ -9,6 +9,10 @@ const multer = require('multer');
 const publicDirectory = path.join(__dirname, './');
 const upload = multer({ dest: 'uploads/' });
 
+// import {router} from "./routes/home.js";
+// const router = require('./routes/home.js');
+const router = require("./routes/home.js");
+
 const PORT = 6903;
 app.listen(6903, () => console.log(`Server is listening on port: ${PORT}`));
 app.use(express.urlencoded({extended: true}));
@@ -30,13 +34,15 @@ app.use(
     }),
 );
 
-app.get('/', (req, res) => {
-    const content = req.session.content || ''; // Lấy dữ liệu từ session, nếu không có thì gán giá trị rỗng
-    res.render("./ejs/index.ejs", { content });
-});
+app.use('/', router);
 
-app.post('/download', require('./routes/download.js'));
+// app.get('/', (req, res) => {
+//     const content = req.session.content || ''; // Lấy dữ liệu từ session, nếu không có thì gán giá trị rỗng
+//     res.render("./ejs/index.ejs", { content });
+// });
 
-app.post('/upload', upload.single('htmlfile'), require('./routes/upload.js'));
+// app.post('/download', require('./routes/download.js'));
 
-app.post('/downloadFileWord', require('./routes/downloadFileWord.js'));
+// app.post('/upload', upload.single('htmlfile'), require('./routes/upload.js'));
+
+// app.post('/downloadFileWord', require('./routes/downloadFileWord.js'));

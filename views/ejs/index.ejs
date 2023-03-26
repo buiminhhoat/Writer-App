@@ -3,44 +3,79 @@
 <head>
     <meta charset="utf-8">
     <title>Writer App</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <script src="/public/tinymce/js/tinymce/tinymce.min.js"></script>
     
     <link rel="stylesheet" href="/public/tinymce/js/tinymce/skins/ui/oxide-dark/content.min.css">
     <link rel="stylesheet" href="/public/bootstrap-5.1.3/dist/css/bootstrap.min.css">
     <script src="/public/bootstrap-5.1.3/dist/js/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel=" stylesheet" href="/public/css/text_field.css">
+    <link rel=" stylesheet" href="/public/css/navbar.css">
+    <link rel=" stylesheet" href="/public/css/button.css">
 </head>
 <body>
-    <h1>
-        Writer-App
-    </h1>
+    <nav class="navbar">
+        <div class="navbar-text logo">Writer App</div>
+        <ul class="navbar-menu">
+            <li><a href="/">Home</a></li>
+            <li><a href="/create">Create new file</a></li>
+        </ul>
+    
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+            }
+        </style>
+    </nav>
 
-    <textarea name="editor"></textarea>
-    <br>
-    <div style="display: flex;">
+    <div style="margin: 10px 0 0 0; padding: 0 50px 0 50px;">
+        <h3>Title: </h3>
+        <textarea class="text-field" id="post_title" name="post_title" style="resize: vertical; height: 50px;"></textarea>
+    </div>
+
+    <div style="margin: 10px 0 0 0; padding: 0 50px 0 50px;">
+        <h3>Content: </h3>
+        <textarea name="editor"></textarea>
+    </div>
+    <div style="display: flex; margin: 30px 0 0 0; padding: 0 50px 0 50px;">
         <form id = "download" action="/download" method="POST">
             <input type="hidden" name="content" id="content" value="">
-            <button type="download" id="download-btn" style="margin-right: 20px;">Download file</button>
+            <button type="download" id="download-btn" style="margin-left: 100px; margin-right: 150px;" class="button_style01">Download file</button>
         </form>
-    
-        <form method="POST" action="/upload" enctype="multipart/form-data">
+
+        <form method="POST" action="/upload" enctype="multipart/form-data" id="upload-form">
+            <label for="htmlfile" style="margin-right: 150px;" class="button_style02">Upload file</label>
+            <input type="file" name="htmlfile" id="htmlfile" onchange="submitForm()" style="display:none" />
+          </form>
+          
+        <!-- <form method="POST" action="/upload" enctype="multipart/form-data">
             <input type="file" name="htmlfile" />
-            <button type="submit" style="margin-right: 20px;">Upload file</button>
-        </form>
+            <button type="submit" style="margin-right: 150px;" class="button_style02">Upload file</button>
+        </form> -->
 
         <form id = "downloadFileWord" action="/downloadfileword" method="POST">
             <input type="hidden" name="contentfileword" id="contentfileword" value="">
-            <button type="download" id="download-btn" style="margin-right: 20px;">Download File Word</button>
+            <button type="download" id="download-btn" style="margin-right: 150px;" class="button_style03">Download File Word</button>
         </form>
+
+        <button class="button_style04" type="save">Save</button>
     </div>
 
+    <script>
+        function submitForm() {
+          document.getElementById("upload-form").submit();
+        }
+    </script>
 
     <script src="/public/js/tinymce.js"></script>
 
     <script>
         var editor = tinymce.init({
             selector: 'textarea[name="editor"]',
-            height: 500,
+            height: 400,
             content_css: '/styles.css',
             plugins:[
             'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'prewiew', 'anchor', 'pagebreak',
@@ -62,10 +97,15 @@
             },
             init_instance_callback: function (editor) {
                 editor.setContent('<%- content %>');
+                document.getElementById('content').value = editor.getContent();
+                document.getElementById('contentfileword').value = editor.getContent();
             }
         });
-      </script>
-    
+
+        window.addEventListener('load', function() {
+
+        });
+    </script>
 </body>
 <body>
 
