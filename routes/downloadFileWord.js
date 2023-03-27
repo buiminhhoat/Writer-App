@@ -14,26 +14,6 @@ const imageSize = require('image-size');
 const JSZip = require('jszip');
 const Docxtemplater = require('docxtemplater');
 
-function downloadImage(url) {
-    return new Promise((resolve, reject) => {
-        const httpOrHttps = url.startsWith('https') ? https : http;
-
-        httpOrHttps.get(url, (response) => {
-            let data = Buffer.from([]);
-
-            response.on('data', (chunk) => {
-                data = Buffer.concat([data, chunk]);
-            });
-
-            response.on('end', () => {
-                resolve(data);
-            });
-        }).on('error', (error) => {
-            reject(`Failed to download image from ${url}: ${error}`);
-        });
-    });
-}
-
 module.exports = async function downloadFileWord(req, res) {
     let content = req.body.contentfileword;
     console.log(content);
@@ -113,8 +93,6 @@ module.exports = async function downloadFileWord(req, res) {
                     cx: cx,
                     cy: cy,
                 });
-                // const para = docx.createP();
-                // para.addImage(data);
             }
         } else {
             const pObj = docx.createP();
@@ -122,27 +100,12 @@ module.exports = async function downloadFileWord(req, res) {
         }
     }
 
-    // // Đặt nội dung vào tệp Word
-    // const pObj = docx.createP();
-    // pObj.addText(content);
-
     // Ghi tệp Word ra đĩa
     const out = fs.createWriteStream('./public/output.docx');
-    docx.generate(out);
-    // res.download(filePath, './public/output.docx');
-
-    res.status(200).send('OK');
-    // console.log(content);
-
-    // fs.writeFile(filePath, content, err => {
-    //     if (err) {
-    //         console.error(err);
-    //         res.status(500).send('Lỗi khi lưu tệp tin');
-    //     } else {
-    //         // Trả về tệp tin cho người dùng để tải xuống
-    //         res.download(filePath, 'file.html');
-    //     }
-    // });
-
-    // fileSaver.saveAs(content, "file.html");
+    // docx.generate(out);
+    res.writeHead ( 200, {
+        "Content-Type": "application/vnd.openxmlformats-officedocument.documentml.document",
+        'Content-disposition': 'attachment; filename=testdoc.docx'
+    });
+    docx.generate(res);
 };
