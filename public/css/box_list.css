@@ -1,0 +1,43 @@
+.box_list {
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:16px;
+    border-radius: 7px;
+    border: 2px solid #EEEEEE;
+    outline: none;
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    height: content-box;
+    margin-top: 30px;
+}
+
+.title {
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:30px;
+}
+
+.content {
+    margin-top: 10px;
+}
+
+.date-modified {
+    margin-top: 10px;
+}
+
+.btn-view {
+    background: linear-gradient(to bottom, #6371c7, #5563c1);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btn-view:hover {
+    background: linear-gradient(to bottom, #5563c1, #6371c7);
+}

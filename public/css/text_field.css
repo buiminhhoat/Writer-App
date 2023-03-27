@@ -1,0 +1,12 @@
+.text-field {
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:16px;
+    border-radius: 7px;
+    border: 2px solid #EEEEEE;
+    outline: none;
+    padding: 10px 10px 10px 15px;
+    width: 100%;
+    box-sizing: border-box;
+    height: 42px;
+}
+

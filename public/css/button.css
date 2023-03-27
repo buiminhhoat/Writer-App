@@ -1,0 +1,226 @@
+.button_style01 {
+    background-color: #3E438E;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: 'BenchNine', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1em;
+    outline: none;
+    padding: 12px 40px 10px;
+    position: relative;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.button_style01:before,
+.button_style01:after {
+    border-color: transparent;
+    -webkit-transition: all 0.25s;
+    transition: all 0.25s;
+    border-style: solid;
+    border-width: 0;
+    content: "";
+    height: 24px;
+    position: absolute;
+    width: 24px;
+}
+
+.button_style01:before {
+    border-color: #3E438E;
+    border-top-width: 2px;
+    left: 0px;
+    top: -5px;
+}
+
+.button_style01:after {
+    border-bottom-width: 2px;
+    border-color: #3E438E;
+    bottom: -5px;
+    right: 0px;
+}
+
+.button_style01:hover,
+.button_style01.hover {
+    background-color: #3E438E;
+}
+
+.button_style01:hover:before,
+.button_style01.hover:before,
+.button_style01:hover:after,
+.button_style01.hover:after {
+    height: 100%;
+    width: 100%;
+}
+
+/* Style 02 */
+.button_style02 {
+    background-color: #0A642B;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: 'BenchNine', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1em;
+    outline: none;
+    padding: 12px 40px 10px;
+    position: relative;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.button_style02:before,
+.button_style02:after {
+    border-color: transparent;
+    -webkit-transition: all 0.25s;
+    transition: all 0.25s;
+    border-style: solid;
+    border-width: 0;
+    content: "";
+    height: 24px;
+    position: absolute;
+    width: 24px;
+}
+
+.button_style02:before {
+    border-color: #0A642B;
+    border-top-width: 2px;
+    left: 0px;
+    top: -5px;
+}
+
+.button_style02:after {
+    border-bottom-width: 2px;
+    border-color: #0A642B;
+    bottom: -5px;
+    right: 0px;
+}
+
+.button_style02:hover,
+.button_style02.hover {
+    background-color: #0A642B;
+}
+
+.button_style02:hover:before,
+.button_style02.hover:before,
+.button_style02:hover:after,
+.button_style02.hover:after {
+    height: 100%;
+    width: 100%;
+}
+
+/* Style 03 */
+.button_style03 {
+    background-color: #F2B400;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: 'BenchNine', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1em;
+    outline: none;
+    padding: 12px 40px 10px;
+    position: relative;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.button_style03:before,
+.button_style03:after {
+    border-color: transparent;
+    -webkit-transition: all 0.25s;
+    transition: all 0.25s;
+    border-style: solid;
+    border-width: 0;
+    content: "";
+    height: 24px;
+    position: absolute;
+    width: 24px;
+}
+
+.button_style03:before {
+    border-color: #F2B400;
+    border-top-width: 2px;
+    left: 0px;
+    top: -5px;
+}
+
+.button_style03:after {
+    border-bottom-width: 2px;
+    border-color: #F2B400;
+    bottom: -5px;
+    right: 0px;
+}
+
+.button_style03:hover,
+.button_style03.hover {
+    background-color: #F2B400;
+}
+
+.button_style03:hover:before,
+.button_style03.hover:before,
+.button_style03:hover:after,
+.button_style03.hover:after {
+    height: 100%;
+    width: 100%;
+}
+
+/* Style 04 */
+.button_style04 {
+    background-color: #502380;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: 'BenchNine', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1em;
+    outline: none;
+    padding: 12px 40px 10px;
+    position: relative;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.button_style04:before,
+.button_style04:after {
+    border-color: transparent;
+    -webkit-transition: all 0.25s;
+    transition: all 0.25s;
+    border-style: solid;
+    border-width: 0;
+    content: "";
+    height: 24px;
+    position: absolute;
+    width: 24px;
+}
+
+.button_style04:before {
+    border-color: #502380;
+    border-top-width: 2px;
+    left: 0px;
+    top: -5px;
+}
+
+.button_style04:after {
+    border-bottom-width: 2px;
+    border-color: #502380;
+    bottom: -5px;
+    right: 0px;
+}
+
+.button_style04:hover,
+.button_style04.hover {
+    background-color: #502380;
+}
+
+.button_style04:hover:before,
+.button_style04.hover:before,
+.button_style04:hover:after,
+.button_style04.hover:after {
+    height: 100%;
+    width: 100%;
+}

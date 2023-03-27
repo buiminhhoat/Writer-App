@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Write App</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel=" stylesheet" href="/public/css/text_field.css">
+    <link rel=" stylesheet" href="/public/css/navbar.css">
+    <link rel=" stylesheet" href="/public/css/button.css">
+</head>
+
+<body>
+<nav class="navbar">
+    <div class="navbar-text logo">Writer App</div>
+    <ul class="navbar-menu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/create">Create new file</a></li>
+    </ul>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</nav>
+
+<h1 style="display: flex; justify-content: center;">Write</h1>
+
+<div style="margin: 30px 0 0 0; padding: 0 50px 0 50px;">
+    <form id="write_form">
+        <h3>Title: </h3>
+        <textarea class="text-field" id="post_title" name="post_title" style="resize: vertical;"></textarea>
+
+        <h3>Content: </h3>
+        <textarea name="post_content" id="post_content" style="width: 100%"></textarea>
+        <div style="display: flex; justify-content: right; padding: 30px 0 30px 0";>
+            <button class="button_style01" type="submit">Save</button>
+        </div>
+    </form>
+</div>
+
+<!-- <script src="/tinymce/tinymce.min.js"></script>
+<script type="module" src="/public/js/scripts/init_tinymce.js"></script>
+<script type="module" src="/public/js/scripts/write_post.js"></script> -->
+</body>
+</html>
