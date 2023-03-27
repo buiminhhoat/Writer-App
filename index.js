@@ -35,14 +35,3 @@ app.use(
 );
 
 app.use('/', router);
-
-// app.get('/', (req, res) => {
-//     const content = req.session.content || ''; // Lấy dữ liệu từ session, nếu không có thì gán giá trị rỗng
-//     res.render("./ejs/index.ejs", { content });
-// });
-
-// app.post('/download', require('./routes/download.js'));
-
-// app.post('/upload', upload.single('htmlfile'), require('./routes/upload.js'));
-
-// app.post('/downloadFileWord', require('./routes/downloadFileWord.js'));

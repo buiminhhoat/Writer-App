@@ -33,7 +33,7 @@
 
     <div style="margin: 10px 0 0 0; padding: 0 50px 0 50px;">
         <h3>Title: </h3>
-        <textarea class="text-field" id="post_title" name="post_title" style="resize: vertical; height: 50px;"></textarea>
+        <textarea class="text-field" id="title" name="title" style="resize: vertical; height: 50px;"></textarea>
     </div>
 
     <div style="margin: 10px 0 0 0; padding: 0 50px 0 50px;">
@@ -56,13 +56,26 @@
             <button type="download" id="download-btn" style="margin-right: 150px;" class="button_style03">Download File Word</button>
         </form>
 
-        <button class="button_style04" type="save">Save</button>
+        <form id = "save" action="/save" method="POST">
+            <input name="titlesave" id="titlesave" value="">
+            <input type="hidden" name="contentsave" id="contentsave" value="">
+            <button class="button_style04" type="save">Save</button>
+        </form>
     </div>
 
     <script>
         function submitForm() {
           document.getElementById("upload-form").submit();
         }
+
+        function updateTitle() {
+            document.getElementById("titlesave").value = textarea.value;
+        }
+        const textarea = document.getElementById("title");
+
+        textarea.addEventListener("input", updateTitle);
+        textarea.addEventListener("change", updateTitle);
+        textarea.addEventListener("paste", updateTitle);
     </script>
 
     <script src="/public/js/tinymce.js"></script>
@@ -84,6 +97,7 @@
                     var content = editor.getContent();
                     document.getElementById('content').value = content;
                     document.getElementById('contentfileword').value = content;
+                    document.getElementById('contentsave').value = content;
                 }
 
                 editor.on('input', updateContent);
@@ -94,6 +108,7 @@
                 editor.setContent('<%- content %>');
                 document.getElementById('content').value = editor.getContent();
                 document.getElementById('contentfileword').value = editor.getContent();
+                document.getElementById('contentsave').value = editor.getContent();
             }
         });
 
