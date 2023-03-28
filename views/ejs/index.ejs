@@ -56,10 +56,10 @@
             <button type="download" id="download-btn" style="margin-right: 150px;" class="button_style03">Download File Word</button>
         </form>
 
-        <form id = "save" action="/save" method="POST">
-            <input name="titlesave" id="titlesave" value="">
+        <form id = "save">
+            <input type="hidden" name="titlesave" id="titlesave" value="">
             <input type="hidden" name="contentsave" id="contentsave" value="">
-            <button class="button_style04" type="save">Save</button>
+            <button class="button_style04" type="submit">Save</button>
         </form>
     </div>
 
@@ -116,6 +116,7 @@
 
         });
     </script>
+    <script type="module" src="/public/js/save.js"></script>
 </body>
 <body>
 
