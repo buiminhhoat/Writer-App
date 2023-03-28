@@ -1,6 +1,5 @@
 const path = require('path');
 const fs = require('fs');
-const fileSaver = require('file-saver');
 
 module.exports = function download(req, res) {
     let content = req.body.content;
@@ -12,10 +11,17 @@ module.exports = function download(req, res) {
             console.error(err);
             res.status(500).send('Lỗi khi lưu tệp tin');
         } else {
-            // Trả về tệp tin cho người dùng để tải xuống
-            res.download(filePath, 'file.html');
+            res.download(filePath, 'file.html', (err) => {
+                if (err) {
+                    console.error(err);
+                } else {
+                    fs.unlink(filePath, (err) => {
+                        if (err) {
+                            console.error(err);
+                        }
+                    });
+                }
+            });
         }
     });
-
-    fileSaver.saveAs(content, "file.html");
 };

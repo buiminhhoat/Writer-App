@@ -10,19 +10,13 @@ router.get('/', (req, res) => {
 })
 
 router.get('/create', (req, res) => {
-    const content = req.session.content || ''; // Lấy dữ liệu từ session, nếu không có thì gán giá trị rỗng
+    const content = req.session.content || '';
     req.session.content = "";
     res.render("./ejs/index.ejs", { content });
 })
-
-// router.get('/', (req, res) => {
-//     const content = req.session.content || ''; // Lấy dữ liệu từ session, nếu không có thì gán giá trị rỗng
-//     res.render("./ejs/index.ejs", { content });
-// });
 
 router.post('/download', require('./download.js'));
 
 router.post('/upload', upload.single('htmlfile'), require('./upload.js'));
 
 router.post('/downloadFileWord', require('./downloadFileWord.js'));
-// router.post('/save', require('./save.js'));
