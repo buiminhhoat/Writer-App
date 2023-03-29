@@ -3,6 +3,7 @@ let posts = JSON.parse(localStorage.getItem("postList"));
 let postList = document.getElementById("postList");
 
 console.log(posts);
+
 for (let i = posts.length - 1; i >= 0; --i) {
     let item = posts[i];
     console.log("*" + item.title + " " + item.date_modified);
