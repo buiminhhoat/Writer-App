@@ -62,23 +62,26 @@
     </div>
 
     <script>
-        function submitForm() {
-          document.getElementById("upload-form").submit();
-        }
 
-        function updateTitle() {
-            document.getElementById("titlesave").value = textarea.value;
-        }
-        const textarea = document.getElementById("title");
-
-        textarea.addEventListener("input", updateTitle);
-        textarea.addEventListener("change", updateTitle);
-        textarea.addEventListener("paste", updateTitle);
     </script>
 
     <script src="/public/js/tinymce.js"></script>
 
     <script>
+        function submitForm() {
+            document.getElementById("upload-form").submit();
+        }
+
+        function updateTitle() {
+            document.getElementById("titlesave").value = document.getElementById("title").value;
+        }
+        const textareaTitle = document.getElementById("title");
+
+        textareaTitle.addEventListener("input", updateTitle);
+        textareaTitle.addEventListener("change", updateTitle);
+        textareaTitle.addEventListener("paste", updateTitle);
+
+        updateTitle();
         let content = '<%- content %>';
         let id = '<%- id %>';
         let title = "";
@@ -106,6 +109,7 @@
                     document.getElementById('content').value = content;
                     document.getElementById('contentfileword').value = content;
                     document.getElementById('contentsave').value = content;
+                    updateTitle();
                 }
 
                 editor.on('input', updateContent);
@@ -117,6 +121,7 @@
                 document.getElementById('content').value = editor.getContent();
                 document.getElementById('contentfileword').value = editor.getContent();
                 document.getElementById('contentsave').value = editor.getContent();
+                updateTitle();
             }
         });
 
