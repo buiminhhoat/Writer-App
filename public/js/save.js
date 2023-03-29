@@ -21,5 +21,6 @@ save.addEventListener("submit", (event) => {
         localStorage.setItem("postList", JSON.stringify([post]));
     }
     console.log(postList);
+    window.location.href = "/";
 })
 

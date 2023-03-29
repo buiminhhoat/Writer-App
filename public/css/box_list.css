@@ -12,12 +12,12 @@
 }
 
 .title {
-    font-family:Helvetica,Arial,sans-serif;
+    font-family:"Times New Roman",sans-serif;
     font-size:30px;
 }
 
 .content {
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 .date-modified {
@@ -40,4 +40,23 @@
 
 .btn-view:hover {
     background: linear-gradient(to bottom, #5563c1, #6371c7);
+}
+
+.btn-delete {
+    background: linear-gradient(to bottom, #FF3300, #FF3300);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 20px;
+    margin-left: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btn-delete:hover {
+    background: linear-gradient(to bottom, #FF3333, #FF3333);
 }

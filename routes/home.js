@@ -10,9 +10,16 @@ router.get('/', (req, res) => {
 })
 
 router.get('/create', (req, res) => {
-    const content = req.session.content || '';
-    req.session.content = "";
-    res.render("./ejs/index.ejs", { content });
+    let content = '';
+    if (req.session.content !== "") {
+        content = req.session.content;
+        req.session.content = "";
+    }
+    let id = "";
+    if (typeof req.query.id !== 'undefined') {
+        id = req.query.id;
+    }
+    res.render("./ejs/index.ejs", { content, id });
 })
 
 router.post('/download', require('./download.js'));

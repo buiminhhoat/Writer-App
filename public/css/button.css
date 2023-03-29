@@ -170,7 +170,7 @@
 
 /* Style 04 */
 .button_style04 {
-    background-color: #502380;
+    background-color: #F19CBB;
     border: none;
     color: #ffffff;
     cursor: pointer;
@@ -199,7 +199,7 @@
 }
 
 .button_style04:before {
-    border-color: #502380;
+    border-color: #F19CBB;
     border-top-width: 2px;
     left: 0px;
     top: -5px;
@@ -207,20 +207,77 @@
 
 .button_style04:after {
     border-bottom-width: 2px;
-    border-color: #502380;
+    border-color: #F19CBB;
     bottom: -5px;
     right: 0px;
 }
 
 .button_style04:hover,
 .button_style04.hover {
-    background-color: #502380;
+    background-color: #F19CBB;
 }
 
 .button_style04:hover:before,
 .button_style04.hover:before,
 .button_style04:hover:after,
 .button_style04.hover:after {
+    height: 100%;
+    width: 100%;
+}
+
+/* Style 05 */
+.button_style05 {
+    background-color: #502380;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: 'BenchNine', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1em;
+    outline: none;
+    padding: 12px 40px 10px;
+    position: relative;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.button_style05:before,
+.button_style05:after {
+    border-color: transparent;
+    -webkit-transition: all 0.25s;
+    transition: all 0.25s;
+    border-style: solid;
+    border-width: 0;
+    content: "";
+    height: 24px;
+    position: absolute;
+    width: 24px;
+}
+
+.button_style05:before {
+    border-color: #502380;
+    border-top-width: 2px;
+    left: 0px;
+    top: -5px;
+}
+
+.button_style05:after {
+    border-bottom-width: 2px;
+    border-color: #502380;
+    bottom: -5px;
+    right: 0px;
+}
+
+.button_style05:hover,
+.button_style05.hover {
+    background-color: #502380;
+}
+
+.button_style05:hover:before,
+.button_style05.hover:before,
+.button_style05:hover:after,
+.button_style05.hover:after {
     height: 100%;
     width: 100%;
 }
