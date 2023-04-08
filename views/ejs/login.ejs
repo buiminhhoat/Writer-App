@@ -31,11 +31,11 @@
     <div class="login">
         <div class="container" id="container">
             <div class="form-container sign-up-container">
-                <form action="#">
+                <form action="/authentication/register" method="POST">
                     <h1>Create Account</h1>
-                    <input type="text" placeholder="Name" />
-                    <input type="email" placeholder="Email" />
-                    <input type="password" placeholder="Password" />
+                    <input type="text" placeholder="Name" id="name" name="name" maxlength="50" required/>
+                    <input type="email" placeholder="Email" id="email" name="email" maxlength="100" required />
+                    <input type="password" placeholder="Password" id="password" name="password" minlength="6" required />
                     <button id="register">Sign Up</button>
                 </form>
             </div>
@@ -44,7 +44,6 @@
                     <h1>Sign in</h1>
                     <input type="email" placeholder="Email" />
                     <input type="password" placeholder="Password" />
-<!--                    <a href="/forgot" style="color: black">Forgot your password?</a>-->
                     <button id="login">Sign In</button>
                 </form>
             </div>
