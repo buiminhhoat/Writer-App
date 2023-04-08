@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <title>Write App</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/css/login.css">
+    <link rel="stylesheet" href="/public/css/navbar.css">
+    <link rel="stylesheet" href="/public/css/box_list.css">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="navbar-text logo">Writer App</div>
+        <ul class="navbar-menu">
+            <li><a href="/">Home</a></li>
+            <li><a href="/create">Create new file</a></li>
+            <li><a href="/login"> Login </a> </li>
+        </ul>
+    </nav>
+
+    <div class="login">
+        <div class="container right-panel-active" id="container">
+            <div class="form-container sign-up-container">
+                <form action="/authentication/register" method="POST">
+                    <h1>Create Account</h1>
+                    <input type="text" placeholder="Name" id="name" name="name" maxlength="50" required/>
+                    <input type="email" placeholder="Email" id="email" name="email" maxlength="100" required />
+                    <input type="password" placeholder="Password" id="password" name="password" minlength="6" required />
+                    <button id="register">Sign Up</button>
+                    <div>
+                        {{#if message_register}}
+                            <h5 class="text-message" style="color: red">{{message_register}}</h5>
+                        {{/if}}
+                    </div>
+                </form>
+            </div>
+            <div class="form-container sign-in-container">
+                <form action="#">
+                    <h1>Sign in</h1>
+                    <input type="email" placeholder="Email" />
+                    <input type="password" placeholder="Password" />
+                    <button id="login">Sign In</button>
+                    <div>
+                        {{#if message_login}}
+                            <h5 class="text-message" style="color: red">{{message_login}}</h5>
+                        {{/if}}
+                    </div>
+                </form>
+            </div>
+            <div class="overlay-container">
+                <div class="overlay">
+                    <div class="overlay-panel overlay-left">
+                        <h1>Welcome Back!</h1>
+                        <p>To keep connected with us please log in with your personal info</p>
+                        <button class="ghost" id="forward-signIn">Sign In</button>
+                    </div>
+                    <div class="overlay-panel overlay-right">
+                        <h1>Hello, Friend!</h1>
+                        <p>Enter your personal details and start journey with us</p>
+                        <button class="ghost" id="forward-signUp">Sign Up</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="public/js/login.js"></script>
+</html>

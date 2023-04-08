@@ -1,5 +1,5 @@
 // module.exports = function login(req, res) {
-//     res.render("./ejs/login.ejs");
+//     res.render("./ejs/login.hbs");
 // }
 
 const express = require('express');
@@ -12,13 +12,11 @@ router.post('/register', (req,res) => {
     const {name, email, password} = req.body;
     db.query('SELECT email FROM user WHERE email = ?', [email], async (error,result) => {
         if(error) console.log(error);
-        // if(result.length > 0)
-        //     return res.render('../views/hbs/register.hbs',{message_register:'Email đã được sử dụng'});
-        // if (password !== passwordconfirm)
-        //     return res.render('../views/hbs/register.hbs',{message_register:'Mật khẩu nhập lại không chính xác'});
+        if(result.length > 0)
+            return res.render('../views/hbs/register.hbs',{message_register:'Email đã được sử dụng'});
         const password_hash = password;
         db.query('INSERT INTO user SET ?', {name: name, email:email, password_hash:password_hash});
-        return res.render('../views/ejs/login.ejs');
+        return res.render('../views/hbs/register.hbs',{message_register:'Bạn đã đăng kí thành công, hãy đăng nhập'});
     })
 });
 

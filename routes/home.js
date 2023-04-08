@@ -29,7 +29,11 @@ router.post('/upload', upload.single('htmlfile'), require('./upload.js'));
 router.post('/downloadFileWord', require('./downloadFileWord.js'));
 
 router.get('/login', (req, res) => {
-    res.render("./ejs/login.ejs");
+    res.render("./hbs/login.hbs");
+});
+
+router.get('/register', (req, res) => {
+    res.render("./hbs/register.hbs");
 });
 
 router.use('/authentication', require('./authentication'));
