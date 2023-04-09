@@ -45,14 +45,17 @@
                 </form>
             </div>
             <div class="form-container sign-in-container">
-                <form action="#">
+                <form action="/authentication/login" method="POST">
                     <h1>Sign in</h1>
-                    <input type="email" placeholder="Email" />
-                    <input type="password" placeholder="Password" />
+                    <input type="email" placeholder="Email" id="email" name="email" maxlength="100" required />
+                    <input type="password" placeholder="Password"  id="password" name="password" minlength="6" required />
                     <button id="login">Sign In</button>
                     <div>
                         {{#if message_login}}
                             <h5 class="text-message" style="color: red">{{message_login}}</h5>
+                            {{#if (message_login === "Bạn đã đăng nhập thành công")}}
+                                <meta http-equiv="refresh" content="1;url=/">
+                            {{/if}}
                         {{/if}}
                     </div>
                 </form>

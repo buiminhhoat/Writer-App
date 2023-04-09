@@ -26,27 +26,22 @@ router.post('/login', (req,res) => {
     {
         if(error) console.log(error);
 
-        console.log(result);
-
         if(result.length <= 0)
         {
             return res.render('../views/hbs/login.hbs',{message_login:'Email không tồn tại'});
         }
-        if(!hashing.compare(password,result[0].passwordHash))
+        if(password !== result[0].password_hash)
         {
             return res.render('../views/hbs/login.hbs',{message_login:"Sai mật khẩu"});
         }
 
-        if(result[0].isBan == 1)
-        {
-            return res.render('../views/hbs/login.hbs',{message_login:"Tài khoản của bạn đã bị khóa!"});
-        }
-        const jsonObject = {email:email, id:result[0].id, isAdmin:result[0].isAdmin};
+        const jsonObject = {email:email, id:result[0].id};
 
         const tokenKey = jwt.sign(jsonObject,'secret',{expiresIn: 8640});
 
+        console.log(tokenKey);
         req.session.tokenKey = tokenKey;
-        return res.redirect('/myHomePage');
+        return res.redirect('/');
     });
 })
 
