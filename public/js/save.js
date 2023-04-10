@@ -2,8 +2,7 @@ const save = document.getElementById("save");
 
 const params = new URLSearchParams(window.location.search);
 const id = params.get('id');
-
-console.log(id);
+// const axios = require('axios');
 
 save.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -36,14 +35,35 @@ save.addEventListener("submit", (event) => {
     }
 
     if (postList) {
+        console.log(3);
         let posts = JSON.parse(postList);
         posts.push(curPost);
         localStorage.setItem("postList", JSON.stringify(posts));
     }
     else {
+        console.log(4);
         localStorage.setItem("postList", JSON.stringify([curPost]));
     }
 
-    window.location.href = "/";
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/savesql', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+    xhr.onreadystatechange = function() { // callback
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+
+            } else {
+                console.error(xhr.status);
+            }
+        }
+    };
+
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('content', content);
+    xhr.send(new URLSearchParams(formData));
+
+    // window.location.href = "/savesql?title=" + encodeURIComponent(title) + "&content=" + encodeURIComponent(content);
 })
 

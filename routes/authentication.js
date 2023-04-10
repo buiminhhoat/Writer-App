@@ -35,7 +35,7 @@ router.post('/login', (req,res) => {
             return res.render('../views/hbs/login.hbs',{message_login:"Sai mật khẩu"});
         }
 
-        const jsonObject = {email:email, id:result[0].id};
+        const jsonObject = {email:email, user_id:result[0].user_id};
 
         const tokenKey = jwt.sign(jsonObject,'secret',{expiresIn: 8640});
 

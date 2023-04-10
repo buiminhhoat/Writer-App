@@ -28,6 +28,8 @@ router.post('/upload', upload.single('htmlfile'), require('./upload.js'));
 
 router.post('/downloadFileWord', require('./downloadFileWord.js'));
 
+router.post('/savesql', require('./savesql.js'));
+
 router.get('/login', (req, res) => {
     res.render("./hbs/login.hbs");
 });
