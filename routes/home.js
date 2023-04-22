@@ -39,3 +39,4 @@ router.get('/register', (req, res) => {
     res.render("./hbs/register.hbs");
 });
 
+router.post('/api/register', require('./authentication').register);

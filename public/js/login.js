@@ -22,6 +22,7 @@ register.addEventListener('click', () => {
 
 document.addEventListener('DOMContentLoaded', (req, res) => {
     const loginForm = document.querySelector('#login-form');
+    const registerForm = document.querySelector('#register-form');
     loginForm.addEventListener('submit', async (event) => {
         event.preventDefault();
         // Xử lí logic đăng nhập ở đây
@@ -47,4 +48,30 @@ document.addEventListener('DOMContentLoaded', (req, res) => {
             window.location.href = '/';
         }
     });
+
+    registerForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        // Xử lí logic đăng nhập ở đây
+        const name = registerForm.elements.name.value;
+        const email = registerForm.elements.email.value;
+        const password = registerForm.elements.password.value;
+
+        console.log(name + " " + email + " " + password);
+        const response = await fetch('/api/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name, email, password })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            alert(data.message_register);
+        } else {
+            alert(data.message_register);
+            window.location.href = '/';
+        }
+    })
 });

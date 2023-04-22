@@ -8,12 +8,15 @@ const { saveToken } = require('../public/js/authentication');
 function register(req, res) {
     const {name, email, password} = req.body;
     db.query('SELECT email FROM user WHERE email = ?', [email], async (error,result) => {
-        if(error) console.log(error);
+        if(error) {
+            console.log(error);
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
         if(result.length > 0)
-            return res.render('../views/hbs/register.hbs',{message_register:'Email đã được sử dụng'});
+            return res.status(401).send({ message_register:'Email đã được sử dụng'});
         const password_hash = password;
         db.query('INSERT INTO user SET ?', {name: name, email:email, password_hash:password_hash});
-        return res.render('../views/hbs/register.hbs',{message_register:'Bạn đã đăng kí thành công, hãy đăng nhập'});
+        return res.status(200).send({ message_register:'Bạn đã đăng kí thành công, hãy đăng nhập' });
     })
 }
 
