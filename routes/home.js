@@ -34,8 +34,8 @@ router.get('/login', (req, res) => {
     res.render("./hbs/login.hbs");
 });
 
+router.post('/api/login', require('./authentication').login);
 router.get('/register', (req, res) => {
     res.render("./hbs/register.hbs");
 });
 
-router.use('/authentication', require('./authentication'));

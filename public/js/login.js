@@ -19,3 +19,32 @@ login.addEventListener('click', () => {
 register.addEventListener('click', () => {
     console.log("register");
 })
+
+document.addEventListener('DOMContentLoaded', (req, res) => {
+    const loginForm = document.querySelector('#login-form');
+    loginForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        // Xử lí logic đăng nhập ở đây
+        const email = loginForm.elements.email.value;
+        const password = loginForm.elements.password.value;
+
+        console.log(email + " " + password);
+        const response = await fetch('/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password })
+        });
+
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            alert(data.message_login);
+        } else {
+            localStorage.setItem('token', data.token);
+            window.location.href = '/';
+        }
+    });
+});
