@@ -6,13 +6,10 @@ const express = require('express');
 const { verify } = require('jsonwebtoken');
 
 module.exports = function savesql(req, res) {
-    const tokenKey = req.session.tokenKey;
-    console.log(tokenKey);
-    if (tokenKey) {
-        const email = verify(tokenKey,'secret').email;
+    const token = req.body.token;
+    console.log(token);
+    if (token) {
+        const email = verify(token,'secret').email;
         console.log(email);
     }
-    console.log(req.body.title);
-    console.log(req.body.content);
-    res.redirect('/');
 }

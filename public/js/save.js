@@ -60,10 +60,10 @@ save.addEventListener("submit", (event) => {
     };
 
     const formData = new FormData();
+    formData.append('token', localStorage.getItem('token'));
     formData.append('title', title);
     formData.append('content', content);
     xhr.send(new URLSearchParams(formData));
-
-    // window.location.href = "/savesql?title=" + encodeURIComponent(title) + "&content=" + encodeURIComponent(content);
+    window.location.href = '/';
 })
 
