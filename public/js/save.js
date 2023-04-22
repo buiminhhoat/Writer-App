@@ -35,13 +35,11 @@ save.addEventListener("submit", (event) => {
     }
 
     if (postList) {
-        console.log(3);
         let posts = JSON.parse(postList);
         posts.push(curPost);
         localStorage.setItem("postList", JSON.stringify(posts));
     }
     else {
-        console.log(4);
         localStorage.setItem("postList", JSON.stringify([curPost]));
     }
 
