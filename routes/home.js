@@ -9,6 +9,7 @@ router.get('/', (req, res) => {
     res.render('./ejs/home.ejs');
 })
 
+router.post('/api/', require('./view').view);
 router.get('/create', (req, res) => {
     let content = '';
     if (req.session.content !== "") {
