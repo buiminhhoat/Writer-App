@@ -11,17 +11,18 @@ router.get('/', (req, res) => {
 
 router.post('/api/', require('./view').view);
 router.get('/create', (req, res) => {
-    let content = '';
-    if (req.session.content !== "") {
-        content = req.session.content;
-        req.session.content = "";
+    let content= "";
+    let post_id= "";
+    let title = "";
+    if (typeof req.query.post_id !== 'undefined') {
+        post_id  = req.query.post_id;
+        content = req.query.content;
+        title = req.query.title;
     }
-    let id = "";
-    if (typeof req.query.id !== 'undefined') {
-        id = req.query.id;
-    }
-    res.render("./ejs/index.ejs", { content, id });
+    res.render("./ejs/index.ejs", { content, post_id, title });
 })
+
+router.post('/api/create', require('./view').create);
 
 router.post('/download', require('./download.js'));
 

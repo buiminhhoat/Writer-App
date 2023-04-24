@@ -36,20 +36,58 @@ function view(req, res) {
 
             for (let i = 0; i < result.length; ++i) {
                 posts.push({
+                    post_id: result[i].post_id,
                     title: result[i].title,
                     content: result[i].content,
-                    date_modified: result[i].date_modified});
+                    date_modified: result[i].date_modified
+                });
             }
 
             res.send({posts: posts});
-            // const jsonObject = {email:email, user_id:result[0].user_id};
-            //
-            // const token = jwt.sign(jsonObject,'secret',{expiresIn: 8640});
-            //
-            // req.session.token = token;
-            // res.send({ token, message_login: "Đăng nhập thành công" });
         });
     });
 }
 
-module.exports = {view};
+function create(req, res) {
+    let content = '';
+    let post_id = "";
+    let title = "";
+    if (typeof req.query.post_id !== 'undefined') {
+        post_id = req.query.post_id;
+        const token = req.body.token;
+        console.log(token);
+        const email = verify(token,'secret').email;
+        console.log(email);
+        let user_id;
+
+        db.query('SELECT * FROM user WHERE email = ?', [email], async (error, result)=>
+        {
+            if(error) {
+                console.log(error);
+                return res.status(500).json({ error: 'Internal Server Error' });
+            }
+
+            if(result.length <= 0)
+            {
+                return res.status(401).send({ message_login:'Token không hợp lệ' });
+            }
+            user_id = result[0].user_id.toString();
+            console.log(user_id);
+            let posts = [];
+            db.query('SELECT * FROM post WHERE post_id = ?', [post_id], async (error, result)=>
+            {
+                if(error) {
+                    console.log(error);
+                    return res.status(500).json({ error: 'Internal Server Error' });
+                }
+
+                post_id = result[0].post_id;
+                content = result[0].content;
+                title = result[0].title;
+                res.send({post_id: post_id, title: title, content: content});
+            });
+        });
+    }
+}
+
+module.exports = {view, create};

@@ -1,7 +1,7 @@
 const save = document.getElementById("save");
 
 const params = new URLSearchParams(window.location.search);
-const id = params.get('id');
+const post_id = params.get('post_id');
 // const axios = require('axios');
 
 save.addEventListener("submit", (event) => {

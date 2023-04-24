@@ -1,5 +1,3 @@
-// let posts = JSON.parse(localStorage.getItem("postList"));
-
 async function loadPosts() {
     const token = localStorage.getItem('token');
 
@@ -16,16 +14,12 @@ async function loadPosts() {
 
     const data = await response.json();
     let posts = [];
-    console.log(data);
     if (response.ok) {
         posts = data.posts;
         let postList = document.getElementById("postList");
 
-        console.log(posts);
-
         for (let i = posts.length - 1; i >= 0; --i) {
             let item = posts[i];
-            console.log("*" + item.title + " " + item.date_modified);
             let divElement = document.createElement("div");
             divElement.classList.add("box_list");
 
@@ -33,11 +27,6 @@ async function loadPosts() {
             titleElement.classList.add("title");
             titleElement.textContent = item.title;
             divElement.appendChild(titleElement);
-
-            /*    let contentElement = document.createElement("div");
-                contentElement.classList.add("content");
-                contentElement.textContent = item.content.substring(0, 150);
-                divElement.appendChild(contentElement);*/
 
             let dateModifiedElement = document.createElement("div");
             dateModifiedElement.classList.add("date-modified");
@@ -47,7 +36,7 @@ async function loadPosts() {
             let viewButton = document.createElement("button");
             viewButton.classList.add("btn-view");
             viewButton.textContent = "View";
-            viewButton.href = `/create?id=${i}`;
+            viewButton.href = `/create?post_id=${item.post_id}`;
             viewButton.addEventListener('click', (event) => {
                 event.preventDefault();
                 window.location.href = viewButton.href;
