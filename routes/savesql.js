@@ -10,11 +10,8 @@ module.exports = function savesql(req, res) {
     const token = req.body.token;
     const content = req.body.content;
     const title = req.body.title;
-    console.log(token);
-    console.log(title + " " + content);
     if (token) {
         const email = verify(token,'secret').email;
-        console.log(email);
         db.query('SELECT * FROM user WHERE email = ?', [email], async (error,result)=>
         {
             if(error) {

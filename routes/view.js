@@ -8,9 +8,7 @@ const {verify} = require("jsonwebtoken");
 
 function view(req, res) {
     const token = req.body.token;
-    console.log(token);
     const email = verify(token,'secret').email;
-    console.log(email);
     let user_id;
 
     db.query('SELECT * FROM user WHERE email = ?', [email], async (error, result)=>
@@ -25,7 +23,7 @@ function view(req, res) {
             return res.status(401).send({ message_login:'Email không tồn tại' });
         }
         user_id = result[0].user_id.toString();
-        console.log(user_id);
+
         let posts = [];
         db.query('SELECT * FROM post WHERE user_id = ?', [user_id], async (error, result)=>
         {
@@ -55,9 +53,7 @@ function create(req, res) {
     if (typeof req.query.post_id !== 'undefined') {
         post_id = req.query.post_id;
         const token = req.body.token;
-        console.log(token);
         const email = verify(token,'secret').email;
-        console.log(email);
         let user_id;
 
         db.query('SELECT * FROM user WHERE email = ?', [email], async (error, result)=>
@@ -72,7 +68,7 @@ function create(req, res) {
                 return res.status(401).send({ message_login:'Token không hợp lệ' });
             }
             user_id = result[0].user_id.toString();
-            console.log(user_id);
+
             let posts = [];
             db.query('SELECT * FROM post WHERE post_id = ?', [post_id], async (error, result)=>
             {

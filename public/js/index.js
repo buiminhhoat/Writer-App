@@ -67,4 +67,31 @@ async function load() {
     });
 }
 
+
+document.addEventListener('DOMContentLoaded', (req, res) => {
+    const downloadForm = document.querySelector('#download');
+    downloadForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const title = document.getElementById('title').value;
+        const content = tinymce.get('editor').getContent();
+
+        const response = await fetch('/api/download', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({title, content})
+        });
+
+        response.blob().then(blob => {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = title + '.html';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+        });
+    });
+});
 load();

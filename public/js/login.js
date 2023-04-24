@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', (req, res) => {
         const email = loginForm.elements.email.value;
         const password = loginForm.elements.password.value;
 
-        console.log(email + " " + password);
         const response = await fetch('/api/login', {
             method: 'POST',
             headers: {
@@ -56,7 +55,6 @@ document.addEventListener('DOMContentLoaded', (req, res) => {
         const email = registerForm.elements.email.value;
         const password = registerForm.elements.password.value;
 
-        console.log(name + " " + email + " " + password);
         const response = await fetch('/api/register', {
             method: 'POST',
             headers: {

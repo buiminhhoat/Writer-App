@@ -2,16 +2,16 @@ const path = require('path');
 const fs = require('fs');
 
 module.exports = function download(req, res) {
+    let title = req.body.title;
     let content = req.body.content;
-    console.log(content);
-
-    const filePath = path.join(__dirname, 'file.html');
+    let nameFile = title + '.html';
+    const filePath = path.join(__dirname, nameFile);
     fs.writeFile(filePath, content, err => {
         if (err) {
             console.error(err);
             res.status(500).send('Lỗi khi lưu tệp tin');
         } else {
-            res.download(filePath, 'file.html', (err) => {
+            res.download(filePath, nameFile, (err) => {
                 if (err) {
                     console.error(err);
                 } else {

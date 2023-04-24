@@ -24,7 +24,7 @@ router.get('/create', (req, res) => {
 
 router.post('/api/create', require('./view').create);
 
-router.post('/download', require('./download.js'));
+router.post('/api/download', require('./download.js'));
 
 router.post('/upload', upload.single('htmlfile'), require('./upload.js'));
 
