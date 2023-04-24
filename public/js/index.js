@@ -15,7 +15,6 @@ async function load() {
 
     updateTitle();
 
-    const token = localStorage.getItem('token');
     const urlParams = new URLSearchParams(window.location.search);
     const post_id = urlParams.get('post_id');
 
@@ -23,8 +22,7 @@ async function load() {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({token})
+        }
     });
 
     const data = await response.json();
@@ -66,7 +64,6 @@ async function load() {
         }
     });
 }
-
 
 document.addEventListener('DOMContentLoaded', (req, res) => {
     const downloadForm = document.querySelector('#download');

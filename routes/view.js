@@ -3,12 +3,11 @@ const router = express.Router();
 const db = require('../database/database');
 const jwt = require('jsonwebtoken');
 
-const { saveToken } = require('../public/js/authentication');
 const {verify} = require("jsonwebtoken");
 
 function view(req, res) {
-    const token = req.body.token;
-    const email = verify(token,'secret').email;
+    const token = req.cookies['token'];
+    const email = verify(token, process.env.ACCESS_TOKEN_SECRET).email;
     let user_id;
 
     db.query('SELECT * FROM user WHERE email = ?', [email], async (error, result)=>
@@ -52,8 +51,8 @@ function create(req, res) {
     let title = "";
     if (typeof req.query.post_id !== 'undefined') {
         post_id = req.query.post_id;
-        const token = req.body.token;
-        const email = verify(token,'secret').email;
+        const token = req.cookies['token'];
+        const email = verify(token, process.env.ACCESS_TOKEN_SECRET).email;
         let user_id;
 
         db.query('SELECT * FROM user WHERE email = ?', [email], async (error, result)=>

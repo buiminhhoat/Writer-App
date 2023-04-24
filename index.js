@@ -5,12 +5,12 @@ const fs = require('fs');
 const fileSaver = require('file-saver');
 const cheerio = require('cheerio');
 const multer = require('multer');
-
+const cookieParser = require('cookie-parser');
 const publicDirectory = path.join(__dirname, './');
 const upload = multer({ dest: 'uploads/' });
 
-// import {router} from "./routes/home.js";
-// const router = require('./routes/home.js');
+require('dotenv').config();
+
 const router = require("./routes/home.js");
 
 const PORT = 6903;
@@ -18,6 +18,8 @@ app.listen(6903, () => console.log(`Server is listening on port: ${PORT}`));
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(express.static(publicDirectory));
+app.use(cookieParser());
+
 app.set('view engine', 'hbs');
 app.set('view engine', 'ejs');
 const session = require('express-session');

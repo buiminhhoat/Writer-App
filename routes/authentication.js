@@ -2,8 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../database/database');
 const jwt = require('jsonwebtoken');
-
-const { saveToken } = require('../public/js/authentication');
+const jwtToken = require('../public/js/utilities/token');
 
 function register(req, res) {
     const {name, email, password} = req.body;
@@ -40,9 +39,8 @@ function login(req, res) {
 
         const jsonObject = {email:email, user_id:result[0].user_id};
 
-        const token = jwt.sign(jsonObject,'secret',{expiresIn: 8640});
-
-        req.session.token = token;
+        const token = jwtToken.generateAccessToken(jsonObject);
+        res.cookie('token', token, { httpOnly: true, maxAge: process.env.MAXAGE });
         res.send({ token, message_login: "Đăng nhập thành công" });
     });
 }

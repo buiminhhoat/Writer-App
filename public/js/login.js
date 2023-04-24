@@ -23,12 +23,12 @@ register.addEventListener('click', () => {
 document.addEventListener('DOMContentLoaded', (req, res) => {
     const loginForm = document.querySelector('#login-form');
     const registerForm = document.querySelector('#register-form');
+    console.log("ok");
     loginForm.addEventListener('submit', async (event) => {
         event.preventDefault();
         // Xử lí logic đăng nhập ở đây
         const email = loginForm.elements.email.value;
         const password = loginForm.elements.password.value;
-
         const response = await fetch('/api/login', {
             method: 'POST',
             headers: {
@@ -37,13 +37,11 @@ document.addEventListener('DOMContentLoaded', (req, res) => {
             body: JSON.stringify({ email, password })
         });
 
-
         const data = await response.json();
 
         if (!response.ok) {
             alert(data.message_login);
         } else {
-            localStorage.setItem('token', data.token);
             window.location.href = '/';
         }
     });
