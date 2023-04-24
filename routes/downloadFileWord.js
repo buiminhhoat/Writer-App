@@ -15,8 +15,9 @@ const JSZip = require('jszip');
 const Docxtemplater = require('docxtemplater');
 
 module.exports = async function downloadFileWord(req, res) {
-    let content = req.body.contentfileword;
-    console.log(content);
+    let title = req.body.title;
+    let content = req.body.content;
+    let nameFile = title + ".docx";
     // Tạo một đối tượng Word mới
     const docx = officegen('docx');
 

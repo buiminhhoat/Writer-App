@@ -93,5 +93,29 @@ document.addEventListener('DOMContentLoaded', (req, res) => {
             a.remove();
         });
     });
+
+    const downloadFileWordForm = document.querySelector('#downloadFileWord');
+    downloadFileWordForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const title = document.getElementById('title').value;
+        const content = tinymce.get('editor').getContent();
+        const response = await fetch('/api/downloadFileWord', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({title, content})
+        });
+
+        response.blob().then(blob => {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = title + '.docx';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+        });
+    });
 });
 load();

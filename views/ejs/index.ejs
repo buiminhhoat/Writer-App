@@ -35,8 +35,7 @@
         <textarea name="editor" id = "editor"></textarea>
     </div>
     <div style="display: flex; margin: 30px 0 0 0; padding: 0 30px 0 30px;">
-        <form id = "download" action="/download" method="POST">
-<!--            <input type="hidden" name="content" id="content" value="">-->
+        <form id = "download" action="/api/download" method="POST">
             <button type="download" id="download-btn" style="margin-left: 50px; margin-right: 100px;" class="button_style01">Download file</button>
         </form>
 
@@ -45,8 +44,7 @@
             <input type="file" name="htmlfile" id="htmlfile" onchange="submitForm()" style="display:none" />
         </form>
 
-        <form id = "downloadFileWord" action="/downloadfileword" method="POST">
-            <input type="hidden" name="contentfileword" id="contentfileword" value="">
+        <form id = "downloadFileWord" action="/api/downloadfileword" method="POST">
             <button type="download" id="download-btn" style="margin-right: 100px;" class="button_style03">Download File Word</button>
         </form>
 

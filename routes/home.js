@@ -28,7 +28,7 @@ router.post('/api/download', require('./download.js'));
 
 router.post('/upload', upload.single('htmlfile'), require('./upload.js'));
 
-router.post('/downloadFileWord', require('./downloadFileWord.js'));
+router.post('/api/downloadFileWord', require('./downloadFileWord.js'));
 
 router.post('/savesql', require('./savesql.js'));
 
