@@ -2,6 +2,7 @@ const signUpButton = document.getElementById('forward-signUp');
 const signInButton = document.getElementById('forward-signIn');
 const container = document.getElementById('container');
 const login = document.getElementById('login');
+
 const register = document.getElementById('register');
 
 signUpButton.addEventListener('click', () => {
@@ -23,7 +24,6 @@ register.addEventListener('click', () => {
 document.addEventListener('DOMContentLoaded', (req, res) => {
     const loginForm = document.querySelector('#login-form');
     const registerForm = document.querySelector('#register-form');
-    console.log("ok");
     loginForm.addEventListener('submit', async (event) => {
         event.preventDefault();
         // Xử lí logic đăng nhập ở đây

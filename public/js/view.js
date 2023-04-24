@@ -9,10 +9,17 @@ async function loadPosts() {
         body: JSON.stringify({token})
     });
 
-
     const data = await response.json();
     let posts = [];
     if (response.ok) {
+        if (data.message !== undefined) {
+            alert(data.message);
+            window.location.href = "/login";
+            return;
+        }
+        let loginStatus = document.getElementById("loginstatus");
+        loginStatus.innerHTML = '<a href="/api/logout"> Logout </a>';
+        // console.log(getCookie("token"));
         posts = data.posts;
         let postList = document.getElementById("postList");
 

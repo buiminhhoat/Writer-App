@@ -7,6 +7,10 @@ const {verify} = require("jsonwebtoken");
 
 function view(req, res) {
     const token = req.cookies['token'];
+    if (token === undefined) {
+        res.send({message: "Vui lòng đăng nhập lại"});
+        return;
+    }
     const email = verify(token, process.env.ACCESS_TOKEN_SECRET).email;
     let user_id;
 

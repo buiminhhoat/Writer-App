@@ -45,4 +45,8 @@ function login(req, res) {
     });
 }
 
-module.exports = {login, register};
+function logout(req, res) {
+    res.clearCookie("token");
+    res.redirect("/");
+}
+module.exports = {login, register, logout};
