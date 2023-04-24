@@ -10,4 +10,4 @@ function getCookie(name) {
     // return null;
 }
 
-module.exports = {getCookie};
+// module.exports = {getCookie};

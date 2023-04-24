@@ -14,14 +14,12 @@ signInButton.addEventListener('click', () => {
 });
 
 login.addEventListener('click', () => {
-    console.log("login");
 })
 
 register.addEventListener('click', () => {
-    console.log("register");
 })
 
-document.addEventListener('DOMContentLoaded', (req, res) => {
+document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.querySelector('#login-form');
     const registerForm = document.querySelector('#register-form');
     loginForm.addEventListener('submit', async (event) => {
@@ -42,6 +40,8 @@ document.addEventListener('DOMContentLoaded', (req, res) => {
         if (!response.ok) {
             alert(data.message_login);
         } else {
+            // document.cookie = `token=${data.token}`;
+            // console.log(document.cookie);
             window.location.href = '/';
         }
     });

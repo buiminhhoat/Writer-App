@@ -1,18 +1,49 @@
 const jwt = require('jsonwebtoken');
 
-// Tạo token từ payload và secret
-function generateAccessToken(jsonInfo) {
-    return jwt.sign(jsonInfo, process.env.ACCESS_TOKEN_SECRET, { expiresIn: process.env.MAXAGE });
+// Tạo token
+function generateAccessToken(jsonObject) {
+    const accessToken = jwt.sign(jsonObject, process.env.TOKEN_SECRET,
+        { expiresIn: process.env.MAX_AGE_TOKEN });
+    return accessToken;
 }
 
-// Xác thực token và trả về payload
-function verifyToken(token) {
+function generateRefreshToken(jsonObject) {
+    const refreshToken = jwt.sign(jsonObject, process.env.TOKEN_SECRET, 
+        {expiresIn: process.env.MAX_AGE_REFRESH_TOKEN});
+    return refreshToken;
+}
+
+// Xác thực token
+function authenticateToken(token) {
     try {
-        return jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+        const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
+        return "true";
     } catch (err) {
-        console.error(err);
-        return null;
+        if (err.name === 'TokenExpiredError') {
+            return "Token expired";
+        } else {
+            return "false";
+        }
     }
 }
 
-module.exports = {generateAccessToken, verifyToken};
+// Refresh token
+function refreshToken(jsonObject, refreshToken) {
+    if (refreshToken == null) return "";
+    jwt.verify(refreshToken, process.env.TOKEN_SECRET, (err, user) => {
+        if (err) return "";
+        const accessToken = jwt.sign(
+            jsonObject,
+            process.env.TOKEN_SECRET,
+            { expiresIn: process.env.MAX_AGE_TOKEN }
+        );
+        return accessToken;
+    });
+}
+
+module.exports = {
+    generateAccessToken,
+    generateRefreshToken,
+    authenticateToken,
+    refreshToken
+};

@@ -40,7 +40,9 @@ function login(req, res) {
         const jsonObject = {email:email, user_id:result[0].user_id};
 
         const token = jwtToken.generateAccessToken(jsonObject);
-        res.cookie('token', token, { httpOnly: true, maxAge: process.env.MAXAGE });
+        const refreshToken = jwtToken.generateRefreshToken(jsonObject);
+        res.cookie('token', token, { httpOnly: true, maxAge: process.env.MAX_AGE_COOKIE });
+        res.cookie('refreshToken', refreshToken, { httpOnly: true, maxAge: process.env.MAX_AGE_COOKIE });
         res.send({ token, message_login: "Đăng nhập thành công" });
     });
 }

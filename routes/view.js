@@ -11,7 +11,7 @@ function view(req, res) {
         res.send({message: "Vui lòng đăng nhập lại"});
         return;
     }
-    const email = verify(token, process.env.ACCESS_TOKEN_SECRET).email;
+    const email = verify(token, process.env.TOKEN_SECRET).email;
     let user_id;
 
     db.query('SELECT * FROM user WHERE email = ?', [email], async (error, result)=>
@@ -56,7 +56,7 @@ function create(req, res) {
     if (typeof req.query.post_id !== 'undefined') {
         post_id = req.query.post_id;
         const token = req.cookies['token'];
-        const email = verify(token, process.env.ACCESS_TOKEN_SECRET).email;
+        const email = verify(token, process.env.TOKEN_SECRET).email;
         let user_id;
 
         db.query('SELECT * FROM user WHERE email = ?', [email], async (error, result)=>

@@ -5,7 +5,7 @@ module.exports = router;
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     res.render('./ejs/home.ejs');
 })
 
@@ -29,6 +29,8 @@ router.post('/api/download', require('./download.js'));
 router.post('/upload', upload.single('htmlfile'), require('./upload.js'));
 
 router.post('/api/downloadFileWord', require('./downloadFileWord.js'));
+
+router.post('/api/refresh_token', require('./refresh_token').refresh_token);
 
 router.post('/savesql', require('./savesql.js'));
 

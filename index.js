@@ -30,7 +30,7 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(
     session({
         secret: 'buiminhhoat',
-        cookie: {maxAge: 60000000},
+        cookie: {MAX_AGE_TOKEN: 60000000},
         resave: false,
         saveUninitialized: true
     }),
