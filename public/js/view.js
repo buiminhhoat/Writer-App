@@ -55,19 +55,30 @@ async function loadPosts() {
                 deleteButton.textContent = "Delete";
 
                 deleteButton.href = `/`;
-                deleteButton.addEventListener('click', (event) => {
+                deleteButton.addEventListener('click', async (event) => {
                     event.preventDefault();
                     console.log(i);
                     console.log(posts[i]);
-                    // posts.splice(i, 1);
-                    // localStorage.setItem("postList", JSON.stringify(posts));
-                    // window.location.href = deleteButton.href;
+                    const post_id = posts[i].post_id;
+                    const response = await fetch('/api/delete_post', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({post_id})
+                    });
+                    const data = await response.json();
+
+                    alert(data.message);
+
+                    if (response.ok) {
+                        window.location.href = '/';
+                    }
                 });
                 divElement.appendChild(deleteButton);
 
                 postList.appendChild(divElement);
             }
-            // window.location.href = '/';
         }
 
         const responseRefreshToken = await fetch('/api/refresh_token', {

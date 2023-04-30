@@ -43,6 +43,33 @@ function save_post(req, res) {
 }
 
 function delete_post(req, res) {
+    const token = req.cookies['token'];
+    const post_id = req.body.post_id;
+    if (token) {
+        const email = verify(token,'secret').email;
+        db.query('SELECT * FROM user WHERE email = ?', [email], async (error,result)=>
+        {
+            if(error) {
+                console.log(error);
+                return res.status(500).json({ error: 'Internal Server Error' });
+            }
 
+            if(result.length <= 0)
+            {
+                return res.status(401).send({ message:'Email không tồn tại' });
+            }
+
+            if (post_id) {
+                db.query('DELETE FROM post WHERE post_id = ?', [post_id], function(err, results) {
+                    if (err) {
+                        res.send({ message: err });
+                        return;
+                    }
+                    res.send({ message: "Xóa bài thành công" });
+                    // console.log('Deleted ' + results.affectedRows + ' rows');
+                });
+            }
+        });
+    }
 }
 module.exports = {save_post, delete_post};
