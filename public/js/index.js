@@ -105,21 +105,25 @@ document.addEventListener('DOMContentLoaded', (req, res) => {
         });
     });
 
-    const savesql = document.querySelector('#savesql');
-    savesql.addEventListener('submit', async (event) => {
+    const save_post = document.querySelector('#save_post');
+    save_post.addEventListener('submit', async (event) => {
         event.preventDefault();
+        const urlParams = new URLSearchParams(window.location.search);
         const title = document.getElementById('title').value;
         const content = tinymce.get('editor').getContent();
-        const response = await fetch('/api/savesql', {
+        let post_id = "";
+        if (urlParams.get("post_id")) {
+            post_id = urlParams.get("post_id");
+        }
+        const response = await fetch('/api/save_post', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({title, content})
+            body: JSON.stringify({post_id, title, content})
         });
 
         const data = await response.json();
-        console.log(data);
         if (response.ok) {
             alert(data.message);
             window.location.href = '/';

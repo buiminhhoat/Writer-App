@@ -44,7 +44,7 @@ save.addEventListener("submit", (event) => {
     }
 
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', '/savesql', true);
+    xhr.open('POST', '/save_post', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
     xhr.onreadystatechange = function() { // callback

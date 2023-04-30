@@ -6,8 +6,9 @@ const express = require('express');
 const { verify } = require('jsonwebtoken');
 const jwt = require("jsonwebtoken");
 
-module.exports = function save(req, res) {
+function save_post(req, res) {
     const token = req.cookies['token'];
+    const post_id = req.body.post_id;
     const content = req.body.content;
     const title = req.body.title;
     // console.log(title + " " + content + " " + token);
@@ -26,8 +27,22 @@ module.exports = function save(req, res) {
             }
 
             const user_id = result[0].user_id;
-            db.query('INSERT INTO post SET ?', {user_id: user_id, content:content, title:title});
-            res.send({ message: "Lưu bài thành công" });
+            if (post_id) {
+                db.query('UPDATE post SET content = ?, title = ?, date_modified = ? WHERE post_id = ?',
+                    [content, title, new Date(), post_id], function(err, results) {
+                    if (err) throw err;
+                    res.send({ message: "Sửa bài thành công" });
+                });
+            }
+            else {
+                db.query('INSERT INTO post SET ?', {user_id: user_id, content:content, title:title, date_modified: new Date()});
+                res.send({ message: "Lưu bài thành công" });
+            }
         });
     }
 }
+
+function delete_post(req, res) {
+
+}
+module.exports = {save_post, delete_post};

@@ -22,7 +22,7 @@ async function loadPosts() {
             posts = data.posts;
             let postList = document.getElementById("postList");
 
-            for (let i = posts.length - 1; i >= 0; --i) {
+            for (let i = 0; i < posts.length; ++i) {
                 let item = posts[i];
                 let divElement = document.createElement("div");
                 divElement.classList.add("box_list");
@@ -34,7 +34,9 @@ async function loadPosts() {
 
                 let dateModifiedElement = document.createElement("div");
                 dateModifiedElement.classList.add("date-modified");
-                dateModifiedElement.textContent = item.date_modified;
+                let date = new Date(item.date_modified);
+                let formattedDate = ('0' + date.getDate()).slice(-2) + '/ ' + ('0' + (date.getMonth()+1)).slice(-2) + '/ ' + date.getFullYear() + ' ' + ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2) + ':' + ('0' + date.getSeconds()).slice(-2);
+                dateModifiedElement.textContent = formattedDate;
                 divElement.appendChild(dateModifiedElement);
 
                 let viewButton = document.createElement("button");
@@ -54,11 +56,12 @@ async function loadPosts() {
 
                 deleteButton.href = `/`;
                 deleteButton.addEventListener('click', (event) => {
-                    console.log(i);
                     event.preventDefault();
-                    posts.splice(i, 1);
-                    localStorage.setItem("postList", JSON.stringify(posts));
-                    window.location.href = deleteButton.href;
+                    console.log(i);
+                    console.log(posts[i]);
+                    // posts.splice(i, 1);
+                    // localStorage.setItem("postList", JSON.stringify(posts));
+                    // window.location.href = deleteButton.href;
                 });
                 divElement.appendChild(deleteButton);
 

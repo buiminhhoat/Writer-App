@@ -8,7 +8,7 @@ const {verify} = require("jsonwebtoken");
 function view(req, res) {
     const token = req.cookies['token'];
     if (token === undefined) {
-        res.send({message: "Vui lòng đăng nhập lại"});
+        res.send({message: "Vui lòng đăng nhập"});
         return;
     }
     const email = verify(token, process.env.TOKEN_SECRET).email;
@@ -28,7 +28,7 @@ function view(req, res) {
         user_id = result[0].user_id.toString();
 
         let posts = [];
-        db.query('SELECT * FROM post WHERE user_id = ?', [user_id], async (error, result)=>
+        db.query('SELECT * FROM post WHERE user_id = ? ORDER BY date_modified DESC', [user_id], async (error, result)=>
         {
             if(error) {
                 console.log(error);

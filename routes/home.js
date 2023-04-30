@@ -33,7 +33,8 @@ router.post('/api/downloadFileWord', requireLogin, require('./downloadFileWord.j
 
 router.post('/api/refresh_token', requireLogin, require('./refresh_token').refresh_token);
 
-router.post('/api/savesql', requireLogin, require('./savesql.js'));
+router.post('/api/save_post', requireLogin, require('./sql.js').save_post);
+router.post('/api/delete_post', requireLogin, require('./sql.js').delete_post);
 
 router.get('/login', (req, res) => {
     res.render("./hbs/login.hbs");
