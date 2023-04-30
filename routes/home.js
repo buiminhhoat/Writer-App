@@ -6,33 +6,6 @@ const multer = require('multer');
 const {verify} = require("jsonwebtoken");
 const upload = multer({ dest: 'uploads/' });
 
-function requireLogin(req, res, next) {
-    const token = req.cookies['token'];
-    if (token === undefined) {
-        res.redirect('/login');
-        return;
-    }
-    try {
-        const email = verify(token, process.env.TOKEN_SECRET).email;
-        if (email === "") {
-            res.redirect('/login');
-        } else {
-            next();
-        }
-    }
-    catch (error) {
-        if (error.name === 'TokenExpiredError') {
-            // handle the TokenExpiredError here
-            res.redirect('/login');
-        } else {
-            // handle other errors here
-            console.error(error);
-        }
-    }
-
-}
-
-
 router.get('/', async (req, res) => {
     res.render('./ejs/home.ejs');
 })
@@ -60,7 +33,7 @@ router.post('/api/downloadFileWord', requireLogin, require('./downloadFileWord.j
 
 router.post('/api/refresh_token', requireLogin, require('./refresh_token').refresh_token);
 
-router.post('/savesql', requireLogin, require('./savesql.js'));
+router.post('/api/savesql', requireLogin, require('./savesql.js'));
 
 router.get('/login', (req, res) => {
     res.render("./hbs/login.hbs");
@@ -75,3 +48,28 @@ router.get('/register', (req, res) => {
 });
 
 router.post('/api/register', require('./authentication').register);
+
+function requireLogin(req, res, next) {
+    const token = req.cookies['token'];
+    if (token === undefined) {
+        res.redirect('/login');
+        return;
+    }
+    try {
+        const email = verify(token, process.env.TOKEN_SECRET).email;
+        if (email === "") {
+            res.redirect('/login');
+        } else {
+            next();
+        }
+    }
+    catch (error) {
+        if (error.name === 'TokenExpiredError') {
+            // handle the TokenExpiredError here
+            res.redirect('/login');
+        } else {
+            // handle other errors here
+            console.error(error);
+        }
+    }
+}

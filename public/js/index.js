@@ -2,19 +2,7 @@ function submitForm() {
     document.getElementById("upload-form").submit();
 }
 
-function updateTitle() {
-    document.getElementById("titlesave").value = document.getElementById("title").value;
-}
-
 async function load() {
-    const textareaTitle = document.getElementById("title");
-
-    textareaTitle.addEventListener("input", updateTitle);
-    textareaTitle.addEventListener("change", updateTitle);
-    textareaTitle.addEventListener("paste", updateTitle);
-
-    updateTitle();
-
     const urlParams = new URLSearchParams(window.location.search);
     const post_id = urlParams.get('post_id');
 
@@ -44,11 +32,11 @@ async function load() {
             'forecolor backcolor emoticons',
         setup: function (editor) {
             function updateContent() {
-                var content = editor.getContent();
-                document.getElementById('content').value = content;
-                document.getElementById('contentfileword').value = content;
-                document.getElementById('contentsave').value = content;
-                updateTitle();
+                // document.getElementById('content').value = editor.getContent();
+                var contentElement = document.getElementById('editor');
+                if (contentElement) {
+                    contentElement.value = editor.getContent();
+                }
             }
 
             editor.on('input', updateContent);
@@ -56,11 +44,13 @@ async function load() {
             editor.on('paste', updateContent);
         },
         init_instance_callback: function (editor) {
-            editor.setContent(content);
-            document.getElementById('content').value = editor.getContent();
-            document.getElementById('contentfileword').value = editor.getContent();
-            document.getElementById('contentsave').value = editor.getContent();
-            updateTitle();
+            var contentElement = document.getElementById('editor');
+            if (contentElement) {
+                editor.setContent(content);
+                contentElement.value = editor.getContent();
+            }
+            // editor.setContent(content);
+            // document.getElementById('content').value = editor.getContent();
         }
     });
 }
@@ -114,5 +104,29 @@ document.addEventListener('DOMContentLoaded', (req, res) => {
             a.remove();
         });
     });
+
+    const savesql = document.querySelector('#savesql');
+    savesql.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const title = document.getElementById('title').value;
+        const content = tinymce.get('editor').getContent();
+        const response = await fetch('/api/savesql', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({title, content})
+        });
+
+        const data = await response.json();
+        console.log(data);
+        if (response.ok) {
+            alert(data.message);
+            window.location.href = '/';
+        } else {
+            alert(data.message);
+        }
+    })
 });
+
 load();
