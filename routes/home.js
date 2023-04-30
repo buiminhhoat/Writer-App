@@ -8,17 +8,28 @@ const upload = multer({ dest: 'uploads/' });
 
 function requireLogin(req, res, next) {
     const token = req.cookies['token'];
-    console.log(token);
     if (token === undefined) {
         res.redirect('/login');
         return;
     }
-    const email = verify(token, process.env.TOKEN_SECRET).email;
-    if (email === "") {
-        res.redirect('/login');
-    } else {
-        next();
+    try {
+        const email = verify(token, process.env.TOKEN_SECRET).email;
+        if (email === "") {
+            res.redirect('/login');
+        } else {
+            next();
+        }
     }
+    catch (error) {
+        if (error.name === 'TokenExpiredError') {
+            // handle the TokenExpiredError here
+            res.redirect('/login');
+        } else {
+            // handle other errors here
+            console.error(error);
+        }
+    }
+
 }
 
 

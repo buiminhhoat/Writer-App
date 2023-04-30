@@ -80,6 +80,12 @@ function create(req, res) {
                     return res.status(500).json({ error: 'Internal Server Error' });
                 }
 
+                if(result.length <= 0)
+                {
+                    res.send({post_id: "", title: "", content: ""});
+                    return;
+                }
+
                 post_id = result[0].post_id;
                 content = result[0].content;
                 title = result[0].title;
